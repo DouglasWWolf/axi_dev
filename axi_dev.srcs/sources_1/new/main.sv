@@ -22,7 +22,7 @@
 
 module main
 (
- (* mark_debug = "true" *)   input CLK100MHZ,
+    input CLK100MHZ,
     input CPU_RESETN,
     input [7:0] SW,
     output [15:0] LED,
@@ -50,16 +50,16 @@ module main
     wire                                AXI_BREADY;
 
     // "Specify read address"           -- Master --    -- Slave --
-    (* mark_debug = "true" *) wire [C_AXI_ADDR_WIDTH-1 : 0]       AXI_ARADDR;     
-    (* mark_debug = "true" *) wire                                AXI_ARVALID;
+    wire [C_AXI_ADDR_WIDTH-1 : 0]       AXI_ARADDR;     
+    wire                                AXI_ARVALID;
     wire [2 : 0]                        AXI_ARPROT;     
-    (* mark_debug = "true" *) wire                                                AXI_ARREADY;
+    wire                                                AXI_ARREADY;
 
     // "Read data back to master"       -- Master --    -- Slave --
-    (* mark_debug = "true" *) wire [C_AXI_DATA_WIDTH-1 : 0]                       AXI_RDATA;
-    (* mark_debug = "true" *) wire                                                AXI_RVALID;
+    wire [C_AXI_DATA_WIDTH-1 : 0]                       AXI_RDATA;
+    wire                                                AXI_RVALID;
     wire [1 : 0]                                        AXI_RRESP;
-	(* mark_debug = "true" *) wire                                AXI_RREADY;
+	wire                                AXI_RREADY;
 
 
     slave slave1
@@ -94,20 +94,18 @@ module main
     // User interface for writing data to the bus
     logic [C_AXI_DATA_WIDTH-1 : 0] bus_wdata;
     logic [C_AXI_ADDR_WIDTH-1 : 0] bus_waddr;
-    (* mark_debug = "true" *)logic                          bus_write;
-    (* mark_debug = "true" *)wire                           bus_widle;
+    logic                          bus_write;
+    wire                           bus_widle;
 
     // User interface for reading data from the bus
     wire  [C_AXI_DATA_WIDTH-1 : 0] bus_rdata;
     logic [C_AXI_ADDR_WIDTH-1 : 0] bus_raddr;
-    (* mark_debug = "true" *) logic                          bus_read;
-    (* mark_debug = "true" *) wire                           bus_ridle;
-
+    logic                          bus_read;
+    wire                           bus_ridle;
 
     axi4_lite_master master
     (
-  
-        //============== The user interface ===============
+          //============== The user interface ===============
         .I_WADDR(bus_waddr),
         .I_WDATA(bus_wdata),
         .I_WRITE(bus_write),
